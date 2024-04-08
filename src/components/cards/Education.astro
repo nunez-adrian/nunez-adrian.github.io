@@ -1,0 +1,81 @@
+---
+import { Image } from "astro:assets";
+import educationLogo from '../../assets/img/education.png';
+---
+
+<div class="item item-with-gradient education place-content-center" onclick="education.showModal()">
+    <Image src={educationLogo} alt="education logo" class="object-cover mx-auto w-28 mt-8" />
+    <div class="bg-gradient-to-t from-white via-black to-black" />
+</div>
+
+<dialog id="education" class="modal" data-theme="light">
+    <div class="modal-box max-w-none lg:w-1/2 w-1/1">
+        <form method="dialog">
+            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+        </form>
+        <div class="flex flex-wrap justify-center items-center mb-2 pb-4">
+            <div class="flex-auto w-80">
+                <hr class="w-16 h-1 bg-info border-0 rounded mb-2">
+                <h1 class="font-bold text-6xl text-black">Formación</h1>
+                <h4 class="font-normal text-2xl italic">Learning curve, fun ride!</h4>
+            </div>
+        </div>
+        <div class="flex flex-wrap justify-center items-center text-black">
+            <ul class="timeline timeline-vertical">
+                <li>
+                    <div class="timeline-start timeline-box">Graduado en Sistemas Microinformáticos y Redes</div>
+                    <div class="timeline-middle">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-info"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
+                    </div>
+                    <div class="timeline-end text-sm italic"><p class="font-semibold">IES Pedro Espinosa</p><p>2009/11</p></div>
+                    <hr class="bg-info" />
+                </li>
+                <li>
+                    <hr class="bg-info" />
+                    <div class="timeline-start text-sm italic text-right"><p class="font-semibold">IES Pedro Espinosa</p><p>2012/14</p></div>
+                    <div class="timeline-middle">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-info"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
+                    </div>
+                    <div class="timeline-end timeline-box">Graduado en Desarrollo de Aplicaciones Web</div>
+                    <hr class="bg-info" />
+                </li>
+                <li>
+                    <hr class="bg-info" />
+                    <div class="timeline-start timeline-box">Autodidacta</div>
+                    <div class="timeline-middle">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-info"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
+                    </div>
+                    <div class="timeline-end text-sm italic"><p>2014/hoy</p></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <form method="dialog" class="modal-backdrop">
+        <button>close</button>
+    </form>
+</dialog>
+
+<style>
+    .education {
+        cursor: pointer;
+    }
+    button:focus {
+        outline: 0;
+    }
+    .card-logo p {
+        font-size: 100px;
+    }
+    svg {
+        opacity: 75%;
+        transition: .5s ease-out;
+        -moz-transition: .5s ease-out;
+        -webkit-transition: .5s ease-out;
+        -o-transition: .5s ease-out;
+        
+        &:hover {
+            opacity: 100%;
+        }
+    }
+    
+    
+</style>
