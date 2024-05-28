@@ -1,10 +1,13 @@
 ---
-import { Image } from "astro:assets";
-import educationLogo from '../../assets/img/education.png';
+import BubbleImage from "../BubbleImage.astro";
+import educationLogo from '../../assets/img/education.png?url';
 ---
 
 <div class="item item-with-gradient education place-content-center" onclick="education.showModal()">
-    <Image src={educationLogo} alt="education logo" class="object-cover mx-auto w-28 mt-8" />
+    <BubbleImage 
+        image = {educationLogo},
+        title = "Education"
+    />
     <div class="bg-gradient-to-t from-white via-black to-black" />
 </div>
 

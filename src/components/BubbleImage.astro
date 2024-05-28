@@ -1,0 +1,10 @@
+---
+interface Props {
+  title: string;
+  image: string; // Esto tendremos que llamarlo en cada componente con ?url para asegurarnos de que lo que viene es un string
+}
+
+const { title, image } = Astro.props;
+---
+
+<img src={image} alt={title} class="object-cover mx-auto w-1/2 h-1/2" />

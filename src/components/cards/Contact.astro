@@ -1,11 +1,13 @@
 ---
-import { Image } from "astro:assets";
-import contactLogo from '../../assets/img/contact.png';
+import BubbleImage from "../BubbleImage.astro";
+import contactLogo from '../../assets/img/contact.png?url';
 ---
 
 <div class="item item-with-gradient contact place-content-center" onclick="contact.showModal()">
-    <Image src={contactLogo} alt="contact logo" class="object-cover mx-auto w-28 mt-10" />
-    <div class="bg-gradient-to-t from-white via-black to-black" />
+    <BubbleImage 
+        image = {contactLogo},
+        title = "Contact"
+    />
 </div>
 
 <dialog id="contact" class="modal" data-theme="light">

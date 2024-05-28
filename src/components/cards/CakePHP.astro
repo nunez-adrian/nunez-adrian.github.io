@@ -1,12 +1,15 @@
 ---
+import BubbleImage from "../BubbleImage.astro";
 import { Image } from "astro:assets";
-import cakePHPLogo from '../../assets/img/CakePHP.png';
+import cakePHPLogo from '../../assets/img/CakePHP.png?url';
 import canalDenunciasPreview from '../../assets/img/canal_denuncias_preview.png';
 ---
 
 <div class="item item-with-gradient cakephp place-content-center" onclick="cakephp.showModal()">
-    <Image src={cakePHPLogo} alt="cakephp logo" class="object-cover mx-auto w-28 mt-2" />
-    <div class="bg-gradient-to-t from-white via-black to-black" />
+    <BubbleImage 
+        image = {cakePHPLogo},
+        title = "CakePHP"
+    />
 </div>
 
 <dialog id="cakephp" class="modal" data-theme="light">
@@ -25,23 +28,23 @@ import canalDenunciasPreview from '../../assets/img/canal_denuncias_preview.png'
             <div class="card w-96 bg-base-100 shadow-xl">
                 <figure><Image src={canalDenunciasPreview} alt="Canal de denuncias preview" /></figure>
                 <div class="card-body">
-                  <h2 class="card-title">
-                    Canal de denuncias
-                  </h2>
-                  <p>Plataforma para denunciar irregularidades o actos ilícitos dentro de la empresa. Proyecto realizado en Grupo Dabo.</p>
-                  <div class="card-actions justify-end mb-2">
-                    <div class="badge badge-outline">CakePHP 4</div> 
-                    <div class="badge badge-outline">Bootstrap 5</div>
-                    <div class="badge badge-outline">jQuery</div>
-                  </div>
-                  <div class="card-actions justify-end">
-                    <a role="button" href="https://dabocanaldenuncia.com/daboconsulting" target="_blank" class="btn btn-info">
-                        Echar un vistazo
-                        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#000000" stroke-width="1.848"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M5 12V6C5 5.44772 5.44772 5 6 5H18C18.5523 5 19 5.44772 19 6V18C19 18.5523 18.5523 19 18 19H12M8.11111 12H12M12 12V15.8889M12 12L5 19" stroke="#464455" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
-                    </a>
-                  </div>
+                    <h2 class="card-title">
+                        Canal de denuncias
+                    </h2>
+                    <p>Plataforma para denunciar irregularidades o actos ilícitos dentro de la empresa. Proyecto realizado en Grupo Dabo.</p>
+                    <div class="card-actions justify-end mb-2">
+                        <div class="badge badge-outline">CakePHP 4</div> 
+                        <div class="badge badge-outline">Bootstrap 5</div>
+                        <div class="badge badge-outline">jQuery</div>
+                    </div>
+                    <div class="card-actions justify-end">
+                        <a role="button" href="https://dabocanaldenuncia.com/daboconsulting" target="_blank" class="btn btn-info">
+                            Echar un vistazo
+                            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#000000" stroke-width="1.848"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M5 12V6C5 5.44772 5.44772 5 6 5H18C18.5523 5 19 5.44772 19 6V18C19 18.5523 18.5523 19 18 19H12M8.11111 12H12M12 12V15.8889M12 12L5 19" stroke="#464455" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                        </a>
+                    </div>
                 </div>
-              </div>
+            </div>
         </div>
     </div>
     <form method="dialog" class="modal-backdrop">

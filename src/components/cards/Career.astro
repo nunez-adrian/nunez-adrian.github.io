@@ -1,11 +1,13 @@
 ---
-import { Image } from "astro:assets";
-import careerLogo from '../../assets/img/career.png';
+import BubbleImage from '../BubbleImage.astro';
+import carrerLogo from '../../assets/img/career.png?url';
 ---
 
 <div class="item item-with-gradient career place-content-center" onclick="career.showModal()">
-    <Image src={careerLogo} alt="career logo" class="object-cover mx-auto w-28 mt-8" />
-    <div class="bg-gradient-to-t from-white via-black to-black" />
+    <BubbleImage 
+        image = {carrerLogo},
+        title = "Career"
+    />
 </div>
 
 <dialog id="career" class="modal" data-theme="light">
