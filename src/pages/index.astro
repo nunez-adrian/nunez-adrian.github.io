@@ -51,8 +51,10 @@ import CakePHP from '../components/cards/CakePHP.astro';
 	</main>
 	
 	<script>
-		// Comprueba el user agent del navegador para saber si es un dispositivo móvil
-		const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+		// Comprueba si la pantalla es tactil para saber si es un dispositivo móvil
+		function isTouchDevice() {
+			return window.matchMedia("(pointer: coarse)").matches;
+		}
 
 		const wrapper = document.querySelector('.wrapper') as unknown as ElementCSSInlineStyle;
 		const profileElement = document.querySelector('.profile');
@@ -120,8 +122,8 @@ import CakePHP from '../components/cards/CakePHP.astro';
 				const r = child.getBoundingClientRect();
 				const childX = r.right - (r.width / 2);
 				const childY = r.bottom - (r.height / 2);
-				const distanceY = Math.max(origin.y, childY) - Math.min(origin.y, childY);
-				const distanceX = Math.max(origin.x, childX) - Math.min(origin.x, childX);
+				const distanceY = isTouchDevice() ? Math.max(origin.touches[0].clientY, childY) - Math.min(origin.touches[0].clientY, childY) : Math.max(origin.y, childY) - Math.min(origin.y, childY);
+        		const distanceX = isTouchDevice() ? Math.max(origin.touches[0].clientX, childX) - Math.min(origin.touches[0].clientX, childX) : Math.max(origin.x, childX) - Math.min(origin.x, childX);
 				const hypot = Math.hypot(distanceX, distanceY);
 				
 				child.distance = Math.round(hypot);
@@ -136,7 +138,8 @@ import CakePHP from '../components/cards/CakePHP.astro';
 			});
 		}
 		
-		if (isMobile) {
+		if (isTouchDevice()) {
+			document.body.style.transform = "scale(1.4)";
 			document.addEventListener('touchmove', function (e) {
 				requestAnimationFrame(function (thisFrame) {
 					if (thisFrame - lastFrame > frameRate) {
