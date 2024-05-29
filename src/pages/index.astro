@@ -51,6 +51,9 @@ import CakePHP from '../components/cards/CakePHP.astro';
 	</main>
 	
 	<script>
+		// Comprueba el user agent del navegador para saber si es un dispositivo móvil
+		const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
 		const wrapper = document.querySelector('.wrapper') as unknown as ElementCSSInlineStyle;
 		const profileElement = document.querySelector('.profile');
 		const items: NodeListOf<HTMLElement> = document.querySelectorAll('.item-with-gradient');
@@ -59,7 +62,7 @@ import CakePHP from '../components/cards/CakePHP.astro';
 		const maxScale = 1.1;
 		const scaleRange = maxScale - minScale;
 		let lastFrame: any;
-
+			
 		const gradientsFrom = [
 			"from-purple-300",
 			"from-blue-300",
@@ -71,7 +74,7 @@ import CakePHP from '../components/cards/CakePHP.astro';
 			"from-indigo-300",
 			"from-orange-300"
 		];
-
+			
 		const gradientsTo = [
 			"to-purple-200",
 			"to-blue-200",
@@ -83,23 +86,17 @@ import CakePHP from '../components/cards/CakePHP.astro';
 			"to-indigo-200",
 			"to-orange-200"
 		];
-		
+			
 		// Desplazar la página para que el elemento medio esté centrado
 		profileElement?.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
-
-		// Recorremos todos los .items y le asignamos un color aleatorio de bg
-		// items.forEach(item => {
-		// 	item.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-		// });
 
 		items.forEach(item => {
 			const randomPosition = Math.floor(Math.random() * gradientsFrom.length);
 			item.classList.add('bg-gradient-to-b', gradientsFrom[randomPosition], gradientsTo[randomPosition]);
 		});
-		
+	
 		// @bradeneast: this helper function stolen from a hero on stackoverflow
 		function dynamicSort(property: any) {
-			
 			let sortOrder = 1;
 			
 			if (property[0] === "-") {
@@ -120,7 +117,6 @@ import CakePHP from '../components/cards/CakePHP.astro';
 			const childrenWithDistances: any = [];
 			
 			children.map((child: any) => {
-				
 				const r = child.getBoundingClientRect();
 				const childX = r.right - (r.width / 2);
 				const childY = r.bottom - (r.height / 2);
@@ -130,54 +126,62 @@ import CakePHP from '../components/cards/CakePHP.astro';
 				
 				child.distance = Math.round(hypot);
 				childrenWithDistances.push(child);
-				
 			});
 			
 			childrenWithDistances.sort(dynamicSort('distance')).reverse();
 			
 			childrenWithDistances.map((child: any, index: any) => {
-				
 				const relativeAmt = (index / children.length) * scaleRange;
 				child.style.setProperty('--scale', minScale + relativeAmt);
-				
 			});
 		}
 		
-		
-		document.addEventListener('mousemove', function (e) {
-			
-			requestAnimationFrame(function (thisFrame) {
-				
-				if (thisFrame - lastFrame > frameRate) {
-					
-					const screenCenter = {
-						x: window.innerWidth / 2,
-						y: window.innerHeight / 2
+		if (isMobile) {
+			document.addEventListener('touchmove', function (e) {
+				requestAnimationFrame(function (thisFrame) {
+					if (thisFrame - lastFrame > frameRate) {
+						const screenCenter = {
+							x: window.innerWidth / 2,
+							y: window.innerHeight / 2
+						}
+						const moveX = e.touches[0].clientX - screenCenter.x;
+						const moveY = e.touches[0].clientY - screenCenter.y;
+						
+						wrapper.style.setProperty('--x', moveX / 10 + '%');
+						wrapper.style.setProperty('--y', moveY / 10 + '%');
+						
+						animateChildren(wrapper, e);
 					}
-					const moveX = e.x - screenCenter.x;
-					const moveY = e.y - screenCenter.y;
-					
-					wrapper.style.setProperty('--x', moveX / 10 + '%');
-					wrapper.style.setProperty('--y', moveY / 10 + '%');
-					
-					animateChildren(wrapper, e);
-				}
-				
-				lastFrame = thisFrame;
-				
+					lastFrame = thisFrame;
+				});
 			});
-		});
-		
+		} else {
+			document.addEventListener('mousemove', function (e) {
+				requestAnimationFrame(function (thisFrame) {
+					if (thisFrame - lastFrame > frameRate) {
+						const screenCenter = {
+							x: window.innerWidth / 2,
+							y: window.innerHeight / 2
+						}
+						const moveX = e.x - screenCenter.x;
+						const moveY = e.y - screenCenter.y;
+						
+						wrapper.style.setProperty('--x', moveX / 10 + '%');
+						wrapper.style.setProperty('--y', moveY / 10 + '%');
+						
+						animateChildren(wrapper, e);
+					}
+					lastFrame = thisFrame;
+				});
+			});
+		}
 		
 		document.body.addEventListener('scroll', function (e) {
-			
 			const screenCenter = {
 				x: window.innerWidth / 2,
 				y: window.innerHeight / 2
 			}
-			
 			animateChildren(wrapper, screenCenter);
-			
 		});
 	</script>
 </Layout>
