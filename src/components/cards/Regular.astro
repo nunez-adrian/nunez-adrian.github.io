@@ -1,7 +1,14 @@
 ---
+interface Props {
+    items: Array<number>;
+}
+
+const { items } = Astro.props as Props;
 ---
 
-<div class="item item-with-gradient regular"></div>
+{items.flatMap((item) => (
+    Array.from({length: item}, () => <div class="item item-with-gradient regular"></div>)
+))}
 
 <style>
     .item {
