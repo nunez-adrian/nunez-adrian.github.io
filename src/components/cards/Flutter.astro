@@ -1,19 +1,19 @@
 ---
 import BubbleImage from "../BubbleImage.astro";
 import Project from "../Project.astro";
-import cakePHPLogo from '../../assets/img/CakePHP.png?url';
-import canalDenunciasPreview from '../../assets/img/canal_denuncias_preview.png?url';
+import flutterLogo from '../../assets/img/Flutter.png?url';
+import audioAppPreview from '../../assets/img/audio_app_preview.png?url';
 
 ---
 
-<div class="item item-with-gradient cakephp place-content-center" onclick="cakephp.showModal()">
+<div class="item item-with-gradient flutter place-content-center" onclick="flutter.showModal()">
     <BubbleImage 
-        image = {cakePHPLogo},
-        title = "CakePHP"
+        image = {flutterLogo},
+        title = "Flutter"
     />
 </div>
 
-<dialog id="cakephp" class="modal" data-theme="light">
+<dialog id="flutter" class="modal" data-theme="light">
     <div class="modal-box max-w-none lg:w-1/2 w-1/1">
         <form method="dialog">
             <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
@@ -21,16 +21,16 @@ import canalDenunciasPreview from '../../assets/img/canal_denuncias_preview.png?
         <div class="flex flex-wrap justify-center items-center mb-2 pb-4">
             <div class="flex-auto w-80">
                 <hr class="w-16 h-1 bg-info border-0 rounded mb-2">
-                <h1 class="font-bold text-6xl text-black">CakePHP</h1>
-                <h4 class="font-normal text-2xl italic">Baking digital delights!</h4>
+                <h1 class="font-bold text-6xl text-black">Flutter</h1>
+                <h4 class="font-normal text-2xl italic">Making Your Apps Flutter-tastic!</h4>
             </div>
         </div>
         <Project
-            title = "Canal de denuncias",
-            description = "Plataforma para denunciar irregularidades o actos ilícitos dentro de la empresa. Proyecto realizado en Grupo Dabo.",
-            image = {canalDenunciasPreview},
-            features = {["CakePHP 4", "Bootstrap 5", "jQuery"]},
-            link = "https://dabocanaldenuncia.com/daboconsulting"
+            title = "Audio Demo App",
+            description = "Demo de una app que simula un login, un menu de usuario, y una lista de reproducción de audios.",
+            image = {audioAppPreview},
+            features = {["Flutter", "Dart", "Firebase", "AudioPlayer", "Routes", "Packages"]},
+            link = "https://nunez-adrian.github.io/flutter_audio_demo/"
         />
     </div>
     <form method="dialog" class="modal-backdrop">
@@ -39,7 +39,7 @@ import canalDenunciasPreview from '../../assets/img/canal_denuncias_preview.png?
 </dialog>
 
 <style>
-    .cakephp {
+    .flutter {
         cursor: pointer;
     }
     button:focus {
