@@ -1,4 +1,4 @@
-const wrapper = document.querySelector('.wrapper') as unknown as ElementCSSInlineStyle;
+const wrapper = document.querySelector('.wrapper') as HTMLElement;
 const profileElement = document.querySelector('.profile');
 const items: NodeListOf<HTMLElement> = document.querySelectorAll('.item-with-gradient');
 const frameRate = 2;
@@ -6,7 +6,8 @@ const minScale = .3;
 const maxScale = 1.1;
 const scaleRange = maxScale - minScale;
 
-let lastFrame: any;
+let lastFrame: number;
+type Coordinates = { x: number; y: number; };
 
 const gradientsFrom = [
     "from-purple-300",
@@ -41,8 +42,8 @@ items.forEach(item => {
     item.classList.add('bg-gradient-to-b', gradientsFrom[randomPosition], gradientsTo[randomPosition]);
 });
 
-// Comprueba si la pantalla es tactil para saber si es un dispositivo móvil
-function isTouchDevice() {
+// Comprueba si la pantalla es táctil para saber si es un dispositivo móvil
+function isTouchDevice(): boolean {
     return window.matchMedia("(pointer: coarse)").matches;
 }
 
@@ -55,42 +56,42 @@ function dynamicSort(property: string) {
         property = property.slice(1);
     }
     
-    return function (a: any, b: any) {
+    return function (a: Record<string, any>, b: Record<string, any>) {
         let result = a[property] < b[property] ? -1 : a[property] > b[property] ? 1 : 0;
         return result * sortOrder;
     }
 }
 
-// Cuando pasa el ratón (o el dedo en pantallas tactiles) por encima de un elemento, este se hace grande y los elementos adyacentes se hacen más pequeños
-function animateChildren(parent: any, origin: any) {
+// Cuando pasa el ratón (o el dedo en pantallas táctiles) por encima de un elemento, este se hace grande y los elementos adyacentes se hacen más pequeños
+function animateChildren(parent: HTMLElement, origin: MouseEvent | TouchEvent | Coordinates) {
     
-    const children = Array.from(parent.children);
-    const childrenWithDistances: any = [];
+    const children = Array.from(parent.children) as HTMLElement[];
+    const childrenWithDistances: HTMLElement[] = [];
     
-    children.map((child: any) => {
+    children.map((child: HTMLElement) => {
         const r = child.getBoundingClientRect();
         const childX = r.right - (r.width / 2);
         const childY = r.bottom - (r.height / 2);
-        const distanceY = isTouchDevice() ? Math.max(origin.touches[0].clientY, childY) - Math.min(origin.touches[0].clientY, childY) : Math.max(origin.y, childY) - Math.min(origin.y, childY);
-        const distanceX = isTouchDevice() ? Math.max(origin.touches[0].clientX, childX) - Math.min(origin.touches[0].clientX, childX) : Math.max(origin.x, childX) - Math.min(origin.x, childX);
+        const distanceY = isTouchDevice() ? Math.max((origin as TouchEvent).touches[0].clientY, childY) - Math.min((origin as TouchEvent).touches[0].clientY, childY) : Math.max((origin as MouseEvent).y, childY) - Math.min((origin as MouseEvent).y, childY);
+        const distanceX = isTouchDevice() ? Math.max((origin as TouchEvent).touches[0].clientX, childX) - Math.min((origin as TouchEvent).touches[0].clientX, childX) : Math.max((origin as MouseEvent).x, childX) - Math.min((origin as MouseEvent).x, childX);
         const hypot = Math.hypot(distanceX, distanceY);
         
-        child.distance = Math.round(hypot);
+        (child as any).distance = Math.round(hypot);
         childrenWithDistances.push(child);
     });
     
     childrenWithDistances.sort(dynamicSort('distance')).reverse();
     
-    childrenWithDistances.map((child: any, index: any) => {
+    childrenWithDistances.map((child: HTMLElement, index: number) => {
         const relativeAmt = (index / children.length) * scaleRange;
-        child.style.setProperty('--scale', minScale + relativeAmt);
+        child.style.setProperty('--scale', (minScale + relativeAmt).toString());
     });
 }
 
 // Cambiamos el addEventListener dependiendo de si es un dispositivo táctil o no
 if (isTouchDevice()) {
     document.body.style.transform = "scale(1.4)";
-    document.addEventListener('touchmove', function (e) {
+    document.addEventListener('touchmove', function (e: TouchEvent) {
         requestAnimationFrame(function (thisFrame) {
             if (thisFrame - lastFrame > frameRate) {
                 const screenCenter = {
@@ -109,7 +110,7 @@ if (isTouchDevice()) {
         });
     });
 } else {
-    document.addEventListener('mousemove', function (e) {
+    document.addEventListener('mousemove', function (e: MouseEvent) {
         requestAnimationFrame(function (thisFrame) {
             if (thisFrame - lastFrame > frameRate) {
                 const screenCenter = {
